@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de productos</title>
+</head>
+<body>
+  
+        <input type="button"
+        onclick="traer()"
+        value="Activar Función">
+      <div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">name</th>
+                <th scope="col">username</th>
+                <th scope="col">email</th>
+                <th scope="col">street</th>
+                <th scope="col">suite</th>
+                <th scope="col">city</th>
+                <th scope="col">phone</th>
+              </tr>
+            </thead>
+            <tbody id="contenido">
+            </tbody>
+          </table>
+        </div>
+</body>
+</html>
+
+<script>
+   
+       var contenido = document.querySelector('#contenido')
+        
+        function traer(){
+            fetch(`https://jsonplaceholder.typicode.com/users`)
+            .then(res=> res.json())
+            .then(datos =>{
+                tabla(datos)
+            })
+        }
+
+        function tabla(datos)
+        {
+            contenido.innerHTML=''
+            for(let valor of datos){
+                contenido.innerHTML+= 
+                `
+                <tr>
+                    <th scope="row">${valor.id}</th>
+                    <th scope="col">${valor.name}</th>
+                    <th scope="col">${valor.username}</th>
+                    <th scope="col">${valor.email}</th>
+                    <th scope="col">${valor.address.street}</th>
+                    <th scope="col">${valor.address.suite}</th>
+                    <th scope="col">${valor.address.city}</th>
+                    <th scope="col">${valor.phone}</th>
+                </tr> 
+                `
+            }
+        }
+    
+   
+</script>
